@@ -4,6 +4,7 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Button;
 
 public class ContactAppGUI {
 
@@ -47,7 +48,7 @@ public class ContactAppGUI {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(451, 378);
+		shell.setSize(451, 406);
 		shell.setText("SWT Application");
 		
 		Canvas canvas = new Canvas(shell, SWT.NONE);
@@ -87,6 +88,10 @@ public class ContactAppGUI {
 		Label lblTwitter = new Label(shell, SWT.NONE);
 		lblTwitter.setBounds(78, 290, 70, 20);
 		lblTwitter.setText("Twitter:");
+		
+		Button btnSubmit = new Button(shell, SWT.NONE);
+		btnSubmit.setBounds(179, 316, 90, 30);
+		btnSubmit.setText("Submit");
 
 	}
 }
