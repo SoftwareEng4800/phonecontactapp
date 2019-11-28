@@ -25,6 +25,7 @@ public class editContact {
 		Display display = Display.getDefault();
 		createContents();
 		shell.open();
+		shell.setLocation(600, 100);
 		shell.layout();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
@@ -38,7 +39,7 @@ public class editContact {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(450, 300);
+		shell.setSize(316, 425);
 		shell.setText("SWT Application");
 
 	}

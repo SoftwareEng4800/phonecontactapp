@@ -130,6 +130,7 @@ public class LoginScreen {
 		btnRegister.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				
 				registerPage newWindow = new registerPage();
 				shlLoginScreen.close();
 				newWindow.open();

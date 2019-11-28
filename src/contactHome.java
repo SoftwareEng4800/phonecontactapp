@@ -12,14 +12,24 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.swt.widgets.Text;
 
 
 
 
 public class contactHome {
 
+	public Connection conn = null;
+	Statement contacts = null;
 	protected Shell shell;
-
+	public static String fname = ""; 
+	public static String lname = "";
+	public static String email = "";
+	public static String phone = "";
+	public static String address = "";
+	public static String facebook = "";
+	public static String twitter = "";
+	
 	/**
 	 * Launch the application.
 	 * @param args
@@ -41,23 +51,72 @@ public class contactHome {
 		createContents();
 		shell.open();
 		shell.setLocation(600, 100);
+		conn = javaConnect.ConnectDB();
+		List list = new List(shell, SWT.BORDER | SWT.V_SCROLL);
+		list.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		list.setBounds(10, 58, 180, 214);
 		
-		List list = new List(shell, SWT.BORDER);
-		list.setBackground(SWTResourceManager.getColor(SWT.COLOR_GRAY));
-		list.setBounds(20, 58, 243, 214);
-		list.add("Test");
-		list.add("Test1");
+		String sqlContacts = "SELECT fname, lname FROM phonecontact";
 		
-		Button btnNewButton = new Button(shell, SWT.NONE);
-		btnNewButton.addSelectionListener(new SelectionAdapter() {
+		try {
+			contacts = conn.createStatement();
+			ResultSet rs = contacts.executeQuery(sqlContacts);
+			
+			while (rs.next()) {
+				list.add(rs.getString(1) + " " + rs.getString(2));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Button viewContactButton = new Button(shell, SWT.NONE);
+		viewContactButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String s = (String) list.getItem(list.getSelectionIndex());
 				JOptionPane.showMessageDialog(null, s);
 			}
 		});
-		btnNewButton.setBounds(118, 278, 90, 30);
-		btnNewButton.setText("New Button");
+		viewContactButton.setBounds(196, 57, 99, 30);
+		viewContactButton.setText("View Contact");
+		
+		Button editContactButton = new Button(shell, SWT.NONE);
+		editContactButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String s = (String) list.getItem(list.getSelectionIndex());
+				String[] sentence = s.split(" ");
+				
+				String sqlEdit = "SELECT * FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
+				
+				try {
+					contacts = conn.createStatement();
+					ResultSet rs = contacts.executeQuery(sqlEdit);
+					while (rs.next()) {
+						
+						fname = rs.getString(1);
+						lname = rs.getString(2);
+						phone = rs.getString(3);
+						email = rs.getString(4);
+						address = rs.getString(5);
+						facebook = rs.getString(6);
+						twitter = rs.getString(7);
+						
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				editContact edit = new editContact();
+				shell.close();
+				edit.open();
+				
+			}
+		});
+		
+		editContactButton.setBounds(196, 93, 99, 30);
+		editContactButton.setText("Edit Contact");
 		shell.layout();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
@@ -94,7 +153,7 @@ public class contactHome {
 				
 			}
 		});
-		btnNewContact.setBounds(20, 278, 90, 30);
+		btnNewContact.setBounds(51, 278, 90, 30);
 		btnNewContact.setText("New Contact");
 
 		

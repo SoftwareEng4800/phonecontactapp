@@ -14,12 +14,13 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 public class registerPage {
+	
 	public Connection conn = null;
 	public PreparedStatement pst = null;
 	protected Shell shellRegister;
-	private Text unameTxtBox;
-	private Text pwordTextBox;
-	private Text verifyPwdTextBox;
+	public Text unameTxtBox;
+	public Text pwordTextBox;
+	public Text verifyPwdTextBox;
 
 	/**
 	 * Launch the application.
@@ -87,7 +88,7 @@ public class registerPage {
 		
 		unameTxtBox = new Text(shellRegister, SWT.BORDER);
 		unameTxtBox.setBounds(147, 160, 115, 26);
-		
+				
 		pwordTextBox = new Text(shellRegister, SWT.BORDER | SWT.PASSWORD);
 		pwordTextBox.setBounds(147, 192, 115, 26);
 		
