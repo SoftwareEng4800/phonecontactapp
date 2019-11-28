@@ -1,6 +1,11 @@
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -9,11 +14,12 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 public class registerPage {
-
+	public Connection conn = null;
+	public PreparedStatement pst = null;
 	protected Shell shellRegister;
-	private Text text;
-	private Text text_1;
-	private Text text_2;
+	private Text unameTxtBox;
+	private Text pwordTextBox;
+	private Text verifyPwdTextBox;
 
 	/**
 	 * Launch the application.
@@ -37,6 +43,7 @@ public class registerPage {
 		shellRegister.open();
 		shellRegister.setLocation(600, 100);
 		shellRegister.layout();
+		conn = javaConnect.ConnectDB();
 		while (!shellRegister.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
@@ -78,23 +85,38 @@ public class registerPage {
 		lblNewLabel_2.setBounds(10, 227, 125, 20);
 		lblNewLabel_2.setText("Re-enter Password:");
 		
-		text = new Text(shellRegister, SWT.BORDER);
-		text.setBounds(147, 160, 115, 26);
+		unameTxtBox = new Text(shellRegister, SWT.BORDER);
+		unameTxtBox.setBounds(147, 160, 115, 26);
 		
-		text_1 = new Text(shellRegister, SWT.BORDER | SWT.PASSWORD);
-		text_1.setBounds(147, 192, 115, 26);
+		pwordTextBox = new Text(shellRegister, SWT.BORDER | SWT.PASSWORD);
+		pwordTextBox.setBounds(147, 192, 115, 26);
 		
-		text_2 = new Text(shellRegister, SWT.BORDER | SWT.PASSWORD);
-		text_2.setBounds(147, 224, 115, 26);
+		verifyPwdTextBox = new Text(shellRegister, SWT.BORDER | SWT.PASSWORD);
+		verifyPwdTextBox.setBounds(147, 224, 115, 26);
 		
 		Button btnNewButton = new Button(shellRegister, SWT.NONE);
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				String sql = "INSERT INTO register VALUES(?,?)";
 				LoginScreen newWindow = new LoginScreen();
-				String newText1 = text_1.toString();
-				String newText2 = text_2.toString();
-				if (text_1.getText().equals(text_2.getText())) {
+				
+				if (pwordTextBox.getText().equals(verifyPwdTextBox.getText())) {
+					
+					try {
+						pst = conn.prepareStatement(sql);
+						
+						pst.setString(1, unameTxtBox.getText());
+						pst.setString(2, pwordTextBox.getText());
+						
+						pst.execute();
+						conn.close();
+						
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+														
 					shellRegister.close();
 					newWindow.open();
 				}

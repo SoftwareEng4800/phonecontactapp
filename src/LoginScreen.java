@@ -1,8 +1,11 @@
-
-
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -11,10 +14,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 public class LoginScreen {
-
+	public Connection conn = null;
+	Statement uname = null;
+	Statement pword = null;
 	protected Shell shlLoginScreen;
-	private Text text;
-	private Text text_1;
+	private Text uNameTextBox;
+	private Text pwordTextBox;
 
 	/**
 	 * Launch the application.
@@ -38,6 +43,7 @@ public class LoginScreen {
 		shlLoginScreen.open();
 		shlLoginScreen.setLocation(600, 100);
 		shlLoginScreen.layout();
+		conn = javaConnect.ConnectDB();
 		while (!shlLoginScreen.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
@@ -54,12 +60,12 @@ public class LoginScreen {
 		shlLoginScreen.setSize(316, 424);
 		shlLoginScreen.setText("Login Screen");
 		
-		text = new Text(shlLoginScreen, SWT.BORDER);
-		text.setBounds(115, 155, 135, 26);
+		uNameTextBox = new Text(shlLoginScreen, SWT.BORDER);
+		uNameTextBox.setBounds(115, 155, 135, 26);
 		
-		text_1 = new Text(shlLoginScreen, SWT.BORDER | SWT.PASSWORD);
+		pwordTextBox = new Text(shlLoginScreen, SWT.BORDER | SWT.PASSWORD);
 		
-		text_1.setBounds(115, 187, 135, 26);
+		pwordTextBox.setBounds(115, 187, 135, 26);
 		
 		Label lblUsername = new Label(shlLoginScreen, SWT.NONE);
 		lblUsername.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
@@ -77,11 +83,46 @@ public class LoginScreen {
 		btnLogin.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				contactHome newWindow = new contactHome();
-				shlLoginScreen.close();
-				newWindow.open();
+				
+				if (uNameTextBox.getText() != "" || pwordTextBox.getText() != "") {
+				String sqlName = "SELECT username FROM register WHERE username = '" + uNameTextBox.getText() + "'";
+				String sqlPass = "SELECT password FROM register WHERE password = '" + pwordTextBox.getText() + "'";
+				@SuppressWarnings("unused")
+				String userName = "";
+				String passWord = "";
+				try {
+					uname = conn.createStatement();
+					pword = conn.createStatement();
+					ResultSet rs = uname.executeQuery(sqlName);
+					ResultSet pw = pword.executeQuery(sqlPass);
+					userName = rs.getString("username");	
+					passWord = pw.getString("password");
+					uname.close();
+					pword.close();
+					conn.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				if (userName.equals(uNameTextBox.getText())) {
+					if (passWord.equals(pwordTextBox.getText())) {
+						contactHome newWindow = new contactHome();
+						shlLoginScreen.close();
+						newWindow.open();
+					}else {
+						JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
+				}						
+			}else {
+				JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
 			}
-		});
+		}
+	});
+		
+		
 		btnLogin.setBounds(160, 251, 90, 30);
 		btnLogin.setText("Login");
 		

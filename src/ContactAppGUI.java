@@ -24,7 +24,8 @@ public class ContactAppGUI {
 	private Text addressTextBox;
 	private Text fbTextBox;
 	private Text twitTextBox;
-	private Text nameTxtBox;
+	private Text lnameTxtBox;
+	private Text fnameTextBox;
 
 	/**
 	 * Launch the application.
@@ -48,6 +49,16 @@ public class ContactAppGUI {
 		createContents();
 		shell.open();
 		shell.setLocation(600, 100);
+		
+		fnameTextBox = new Text(shell, SWT.BORDER);
+		fnameTextBox.setToolTipText("");
+		fnameTextBox.setBounds(93, 90, 193, 26);
+		
+		Label lblFirstName = new Label(shell, SWT.NONE);
+		lblFirstName.setText("First Name:");
+		lblFirstName.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		lblFirstName.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		lblFirstName.setBounds(10, 99, 77, 20);
 		shell.layout();
 		conn = javaConnect.ConnectDB();
 		while (!shell.isDisposed()) {
@@ -129,17 +140,18 @@ public class ContactAppGUI {
 		btnSubmit.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				String sql = "INSERT INTO phonecontact VALUES(?,?,?,?,?,?)";
-				if (nameTxtBox.getText() != "") {
+				String sql = "INSERT INTO phonecontact VALUES(?,?,?,?,?,?,?)";
+				if (fnameTextBox.getText() != "") {
 				try {
 				
 				pst = conn.prepareStatement(sql);
-				pst.setString(1, nameTxtBox.getText());
-				pst.setString(2, phonenum.getText());
-				pst.setString(3, emailTextBox.getText());
-				pst.setString(4, addressTextBox.getText());
-				pst.setString(5, fbTextBox.getText());
-				pst.setString(6, twitTextBox.getText());
+				pst.setString(1, fnameTextBox.getText());
+				pst.setString(2, lnameTxtBox.getText());
+				pst.setString(3, phonenum.getText());
+				pst.setString(4, emailTextBox.getText());
+				pst.setString(5, addressTextBox.getText());
+				pst.setString(6, fbTextBox.getText());
+				pst.setString(7, twitTextBox.getText());
 			
 				
 				pst.executeUpdate();
@@ -164,21 +176,21 @@ public class ContactAppGUI {
 		btnSubmit.setBounds(103, 316, 90, 30);
 		btnSubmit.setText("Submit");
 		
-		nameTxtBox = new Text(shell, SWT.BORDER);
-		nameTxtBox.setToolTipText("");
-		nameTxtBox.setBounds(93, 122, 193, 26);
+		lnameTxtBox = new Text(shell, SWT.BORDER);
+		lnameTxtBox.setToolTipText("");
+		lnameTxtBox.setBounds(93, 122, 193, 26);
 		
 		Label lblName = new Label(shell, SWT.NONE);
 		lblName.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		lblName.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		lblName.setBounds(39, 125, 48, 20);
-		lblName.setText("Name:");
+		lblName.setBounds(10, 125, 77, 20);
+		lblName.setText("Last Name:");
 		
 		Label lblNewLabel = new Label(shell, SWT.NONE);
 		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.BOLD));
-		lblNewLabel.setBounds(30, 36, 239, 80);
+		lblNewLabel.setBounds(30, 36, 239, 45);
 		lblNewLabel.setText("Create Contact");
 
 	}
