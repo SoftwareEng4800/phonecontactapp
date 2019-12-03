@@ -10,7 +10,7 @@ public class javaConnect {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\viver\\git\\ContactApp\\contactApp.sqlite");
-			JOptionPane.showMessageDialog(null, "Connection Established");
+			//JOptionPane.showMessageDialog(null, "Connection Established");
 			return conn;
 			}catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e);

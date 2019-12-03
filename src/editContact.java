@@ -3,12 +3,22 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import javax.swing.JOptionPane;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class editContact {
-
+	public Connection conn = null;
+	public PreparedStatement pst = null;
 	protected Shell shell;
 
 	/**
@@ -32,7 +42,25 @@ public class editContact {
 		createContents();
 		shell.open();
 		shell.setLocation(800, 200);
+		conn = javaConnect.ConnectDB();
 		contactHome contact = new contactHome();
+		
+		Label backLabel = new Label(shell, SWT.NONE);
+		backLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
+		backLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		backLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		backLabel.setBounds(199, 10, 89, 31);
+		backLabel.setText("<- Back");
+		backLabel.getCursor();
+		backLabel.addListener(SWT.MouseDown, new Listener() {
+		
+			@Override
+			public void handleEvent(Event arg0) {
+				contactHome contact = new contactHome();
+				shell.close();
+				contact.open();				
+			}			
+		});
 		Label lblNewLabel = new Label(shell, SWT.NONE);
 		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
@@ -117,6 +145,47 @@ public class editContact {
 		Text twitTextBox = new Text(shell, SWT.BORDER);
 		twitTextBox.setBounds(93, 282, 193, 26);
 		twitTextBox.setText(contact.twitter);
+		
+		Button updateButton = new Button(shell, SWT.NONE);
+		updateButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String sql = "UPDATE phonecontact SET fname=?, lname=?, phone=?, email=?, address=?, fb=?, twitter=?"
+						+ "WHERE fname LIKE '"+ contactHome.fname + "'";
+				
+				if (fnameTxtBox.getText() != "") {
+					try {
+					
+					pst = conn.prepareStatement(sql);
+					pst.setString(1, fnameTxtBox.getText());
+					pst.setString(2, lnameTextBox.getText());
+					pst.setString(3, phonenum.getText());
+					pst.setString(4, emailTextBox.getText());
+					pst.setString(5, addressTextBox.getText());
+					pst.setString(6, fbTextBox.getText());
+					pst.setString(7, twitTextBox.getText());
+				
+					
+					pst.executeUpdate();
+					conn.close();
+					contactHome newWindow = new contactHome();
+					shell.close();
+					newWindow.open();
+					
+					}catch(Exception er){
+						
+						JOptionPane.showMessageDialog(null, er);
+						shell.close();
+					}
+					}else {
+					JOptionPane.showMessageDialog(null, "Name is required.");
+					
+					}
+				
+			}
+		});
+		updateButton.setBounds(114, 314, 90, 30);
+		updateButton.setText("Update");
 		
 		shell.layout();
 		while (!shell.isDisposed()) {

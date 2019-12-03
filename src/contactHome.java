@@ -55,7 +55,7 @@ public class contactHome {
 		List list = new List(shell, SWT.BORDER | SWT.V_SCROLL);
 		list.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		list.setBounds(10, 58, 180, 214);
-		
+				
 		String sqlContacts = "SELECT fname, lname FROM phonecontact";
 		
 		try {
@@ -69,14 +69,18 @@ public class contactHome {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		list.setSelection(0);
 		
 		Button viewContactButton = new Button(shell, SWT.NONE);
+		viewContactButton.setBounds(196, 57, 99, 30);
+		viewContactButton.setText("View Contact");
 		viewContactButton.addSelectionListener(new SelectionAdapter() {
 			@SuppressWarnings("unused")
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String s = (String) list.getItem(list.getSelectionIndex());
 				String[] sentence = s.split(" ");
+		
 				if (s != "") {
 					String sqlEdit = "SELECT * FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
 					try {
@@ -100,7 +104,7 @@ public class contactHome {
 					viewContact view = new viewContact();
 					shell.close();
 					view.open();
-				} else if (s.equals("")) {
+				} else if (sentence[0] == "") {
 					JOptionPane.showMessageDialog(null, s);
 				}
 			
@@ -108,8 +112,7 @@ public class contactHome {
 				
 			}
 		});
-		viewContactButton.setBounds(196, 57, 99, 30);
-		viewContactButton.setText("View Contact");
+		
 		
 		Button editContactButton = new Button(shell, SWT.NONE);
 		editContactButton.addSelectionListener(new SelectionAdapter() {
@@ -147,6 +150,31 @@ public class contactHome {
 		
 		editContactButton.setBounds(196, 93, 99, 30);
 		editContactButton.setText("Edit Contact");
+		
+		Button deleteButton = new Button(shell, SWT.NONE);
+		deleteButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String s = (String) list.getItem(list.getSelectionIndex());
+				String[] sentence = s.split(" ");
+				
+				String sqlDelete = "DELETE FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
+				try {
+					contacts = conn.createStatement();
+					contacts.execute(sqlDelete);
+					shell.close();
+					contactHome contact = new contactHome();
+					contact.open();
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		deleteButton.setFont(SWTResourceManager.getFont("Segoe UI", 8, SWT.NORMAL));
+		deleteButton.setBounds(196, 129, 99, 30);
+		deleteButton.setText("Delete Contact");
 		shell.layout();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
