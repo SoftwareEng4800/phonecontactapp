@@ -42,7 +42,19 @@ public class registerPage {
 		Display display = Display.getDefault();
 		createContents();
 		shellRegister.open();
-		shellRegister.setLocation(600, 100);
+		shellRegister.setLocation(800, 200);
+		
+		Button cancelBtn = new Button(shellRegister, SWT.NONE);
+		cancelBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				LoginScreen login = new LoginScreen();
+				shellRegister.close();
+				login.open();
+			}
+		});
+		cancelBtn.setBounds(172, 266, 90, 30);
+		cancelBtn.setText("Cancel");
 		shellRegister.layout();
 		conn = javaConnect.ConnectDB();
 		while (!shellRegister.isDisposed()) {
@@ -123,7 +135,7 @@ public class registerPage {
 				}
 			}
 		});
-		btnNewButton.setBounds(107, 267, 90, 30);
+		btnNewButton.setBounds(65, 266, 90, 30);
 		btnNewButton.setText("Submit");
 
 	}

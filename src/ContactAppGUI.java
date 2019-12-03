@@ -48,37 +48,36 @@ public class ContactAppGUI {
 		Display display = Display.getDefault();
 		createContents();
 		shell.open();
-		shell.setLocation(600, 100);
+		shell.setLocation(800, 200);
 		contactHome contact = new contactHome();
 		
+		fnameTxtBox = new Text(shell, SWT.BORDER);
+		fnameTxtBox.setToolTipText("");
+		fnameTxtBox.setBounds(93, 90, 193, 26);
+		
+		Label lblName = new Label(shell, SWT.NONE);
+		lblName.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		lblName.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		lblName.setBounds(10, 128, 77, 20);
+		lblName.setText("Last Name:");
+		
+		Label lblNewLabel = new Label(shell, SWT.NONE);
+		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.BOLD));
+		lblNewLabel.setBounds(30, 36, 239, 45);
+		lblNewLabel.setText("Create Contact");
 		
 		lnameTextBox = new Text(shell, SWT.BORDER);
 		lnameTextBox.setToolTipText("");
 		lnameTextBox.setBounds(93, 122, 193, 26);
-		//lnameTextBox.setText(contact.lname);
+		
 				
 		Label lblFirstName = new Label(shell, SWT.NONE);
 		lblFirstName.setText("First Name:");
 		lblFirstName.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		lblFirstName.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		lblFirstName.setBounds(10, 93, 77, 20);
-		shell.layout();
-		conn = javaConnect.ConnectDB();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
-			}
-		}
-	}
-
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
-		shell = new Shell();
-		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		shell.setSize(316, 425);
-		shell.setText("Create Contact");
 		
 		phonenum = new Text(shell, SWT.BORDER);
 		phonenum.addListener(SWT.Verify, new Listener() {
@@ -138,6 +137,25 @@ public class ContactAppGUI {
 		lblTwitter.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		lblTwitter.setBounds(39, 285, 48, 20);
 		lblTwitter.setText("Twitter:");
+		shell.layout();
+		conn = javaConnect.ConnectDB();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}
+
+	/**
+	 * Create contents of the window.
+	 */
+	protected void createContents() {
+		shell = new Shell();
+		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		shell.setSize(316, 425);
+		shell.setText("Create Contact");
+		
+		
 		
 		Button btnSubmit = new Button(shell, SWT.NONE);
 		btnSubmit.setForeground(SWTResourceManager.getColor(SWT.COLOR_BLACK));
@@ -180,22 +198,7 @@ public class ContactAppGUI {
 		btnSubmit.setBounds(103, 316, 90, 30);
 		btnSubmit.setText("Submit");
 		
-		fnameTxtBox = new Text(shell, SWT.BORDER);
-		fnameTxtBox.setToolTipText("");
-		fnameTxtBox.setBounds(93, 90, 193, 26);
 		
-		Label lblName = new Label(shell, SWT.NONE);
-		lblName.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblName.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		lblName.setBounds(10, 128, 77, 20);
-		lblName.setText("Last Name:");
-		
-		Label lblNewLabel = new Label(shell, SWT.NONE);
-		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.BOLD));
-		lblNewLabel.setBounds(30, 36, 239, 45);
-		lblNewLabel.setText("Create Contact");
 
 	}
 }

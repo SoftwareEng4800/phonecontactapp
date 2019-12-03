@@ -50,7 +50,7 @@ public class contactHome {
 		Display display = Display.getDefault();
 		createContents();
 		shell.open();
-		shell.setLocation(600, 100);
+		shell.setLocation(800, 200);
 		conn = javaConnect.ConnectDB();
 		List list = new List(shell, SWT.BORDER | SWT.V_SCROLL);
 		list.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
@@ -72,33 +72,39 @@ public class contactHome {
 		
 		Button viewContactButton = new Button(shell, SWT.NONE);
 		viewContactButton.addSelectionListener(new SelectionAdapter() {
+			@SuppressWarnings("unused")
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String s = (String) list.getItem(list.getSelectionIndex());
 				String[] sentence = s.split(" ");
-				
-				String sqlEdit = "SELECT * FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
-				try {
-					contacts = conn.createStatement();
-					ResultSet rs = contacts.executeQuery(sqlEdit);
-					while (rs.next()) {
-						
-						fname = rs.getString(1);
-						lname = rs.getString(2);
-						phone = rs.getString(3);
-						email = rs.getString(4);
-						address = rs.getString(5);
-						facebook = rs.getString(6);
-						twitter = rs.getString(7);
-						
+				if (s != "") {
+					String sqlEdit = "SELECT * FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
+					try {
+						contacts = conn.createStatement();
+						ResultSet rs = contacts.executeQuery(sqlEdit);
+						while (rs.next()) {
+							
+							fname = rs.getString(1);
+							lname = rs.getString(2);
+							phone = rs.getString(3);
+							email = rs.getString(4);
+							address = rs.getString(5);
+							facebook = rs.getString(6);
+							twitter = rs.getString(7);
+							
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					viewContact view = new viewContact();
+					shell.close();
+					view.open();
+				} else if (s.equals("")) {
+					JOptionPane.showMessageDialog(null, s);
 				}
-				viewContact view = new viewContact();
-				shell.close();
-				view.open();
+			
+			
 				
 			}
 		});

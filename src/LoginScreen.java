@@ -41,7 +41,7 @@ public class LoginScreen {
 		Display display = Display.getDefault();
 		createContents();
 		shlLoginScreen.open();
-		shlLoginScreen.setLocation(600, 100);
+		shlLoginScreen.setLocation(800, 200);
 		shlLoginScreen.layout();
 		conn = javaConnect.ConnectDB();
 		while (!shlLoginScreen.isDisposed()) {
@@ -78,6 +78,12 @@ public class LoginScreen {
 		lblPassword.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		lblPassword.setBounds(45, 190, 64, 20);
 		lblPassword.setText("Password:");
+		Label lblNewLabel = new Label(shlLoginScreen, SWT.NONE);
+		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.BOLD));
+		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		lblNewLabel.setBounds(90, 48, 115, 55);
+		lblNewLabel.setText("Login");
 		
 		Button btnLogin = new Button(shlLoginScreen, SWT.NONE);
 		btnLogin.addSelectionListener(new SelectionAdapter() {
@@ -112,6 +118,7 @@ public class LoginScreen {
 						newWindow.open();
 					}else {
 						JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
+						
 					}
 				}else {
 					JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
@@ -139,12 +146,7 @@ public class LoginScreen {
 		btnRegister.setText("Register");
 		btnRegister.setBounds(51, 251, 90, 30);
 		
-		Label lblNewLabel = new Label(shlLoginScreen, SWT.NONE);
-		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.BOLD));
-		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblNewLabel.setBounds(90, 48, 115, 55);
-		lblNewLabel.setText("Login");
+		
 		
 	
 

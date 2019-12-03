@@ -14,6 +14,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class viewContact {
 		
@@ -38,7 +40,7 @@ public class viewContact {
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
-		shell.setLocation(600, 100);
+		shell.setLocation(800, 200);
 		shell.open();
 		contactHome view = new contactHome();
 		Label fnameLabel = new Label(shell, SWT.NONE);
@@ -108,6 +110,13 @@ public class viewContact {
 		});
 		
 		Button viewMapBtn = new Button(shell, SWT.NONE);
+		viewMapBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				showMap show = new showMap();
+				show.open();
+			}
+		});
 		viewMapBtn.setBounds(75, 338, 150, 30);
 		viewMapBtn.setText("View Map Location");
 		shell.layout();

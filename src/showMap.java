@@ -33,7 +33,7 @@ public class showMap {
 		shell.setBackgroundImage(oldImage);
 		shell.setSize(316,425);
 		shell.open();
-		shell.setLocation(600, 100);
+		shell.setLocation(800, 200);
 		shell.layout();
 		
 		while (!shell.isDisposed()) {
