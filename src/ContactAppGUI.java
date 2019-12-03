@@ -113,6 +113,22 @@ public class ContactAppGUI {
 		lblEmail.setBounds(47, 189, 40, 20);
 		lblEmail.setText("Email:");
 		
+		Label backLabel = new Label(shell, SWT.NONE);
+		backLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
+		backLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		backLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		backLabel.setBounds(199, 10, 89, 31);
+		backLabel.setText("<- Back");
+		backLabel.getCursor();
+		backLabel.addListener(SWT.MouseDown, new Listener() {
+		
+			@Override
+			public void handleEvent(Event arg0) {
+				contactHome contact = new contactHome();
+				shell.close();
+				contact.open();				
+			}
+		});
 		Label lblAddress = new Label(shell, SWT.NONE);
 		lblAddress.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		lblAddress.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
