@@ -1,6 +1,9 @@
 import org.eclipse.swt.widgets.Display;
+
+import com.google.maps.GeoApiContext;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Text;
@@ -32,6 +35,9 @@ public class ContactAppGUI {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		GeoApiContext context = new GeoApiContext.Builder()
+				.apiKey("AIzaSyCj11Xr9nAVmCWloNL7O7Ea3FNhUanTfz8")
+				.build();
 		try {
 			ContactAppGUI window = new ContactAppGUI();
 			window.open();
@@ -81,7 +87,8 @@ public class ContactAppGUI {
 		
 		phonenum = new Text(shell, SWT.BORDER);
 		phonenum.addListener(SWT.Verify, new Listener() {
-		      public void handleEvent(Event e) {
+		      @Override
+			public void handleEvent(Event e) {
 		        String string = e.text;
 		        char[] chars = new char[string.length()];
 		        string.getChars(0, chars.length, chars, 0);
@@ -194,6 +201,7 @@ public class ContactAppGUI {
 				
 				pst.executeUpdate();
 				conn.close();
+				
 				contactHome newWindow = new contactHome();
 				shell.close();
 				newWindow.open();

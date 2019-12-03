@@ -11,6 +11,7 @@ public class ContactGUI {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					ContactGUI window = new ContactGUI();

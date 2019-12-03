@@ -76,7 +76,7 @@ public class editContact {
 		Text fnameTxtBox = new Text(shell, SWT.BORDER);
 		fnameTxtBox.setToolTipText("");
 		fnameTxtBox.setBounds(93, 90, 193, 26);
-		fnameTxtBox.setText(contact.fname);
+		fnameTxtBox.setText(contactHome.fname);
 		
 		Label lblName = new Label(shell, SWT.NONE);
 		lblName.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
@@ -86,7 +86,7 @@ public class editContact {
 		Text lnameTextBox = new Text(shell, SWT.BORDER);
 		lnameTextBox.setToolTipText("");
 		lnameTextBox.setBounds(93, 122, 193, 26);
-		lnameTextBox.setText(contact.lname);		
+		lnameTextBox.setText(contactHome.lname);		
 		
 		Label lblPhone = new Label(shell, SWT.NONE);
 		lblPhone.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
@@ -95,7 +95,8 @@ public class editContact {
 		lblPhone.setText("Phone #:");
 		Text phonenum = new Text(shell, SWT.BORDER);
 		phonenum.addListener(SWT.Verify, new Listener() {
-		      public void handleEvent(Event e) {
+		      @Override
+			public void handleEvent(Event e) {
 		        String string = e.text;
 		        char[] chars = new char[string.length()];
 		        string.getChars(0, chars.length, chars, 0);
@@ -108,7 +109,7 @@ public class editContact {
 		      }
 		    });
 		phonenum.setBounds(93, 154, 193, 26);
-		phonenum.setText(contact.phone);	
+		phonenum.setText(contactHome.phone);	
 		
 		Label lblEmail = new Label(shell, SWT.NONE);
 		lblEmail.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
@@ -117,7 +118,7 @@ public class editContact {
 		lblEmail.setText("Email:");
 		Text emailTextBox = new Text(shell, SWT.BORDER);
 		emailTextBox.setBounds(93, 186, 193, 26);
-		emailTextBox.setText(contact.email);
+		emailTextBox.setText(contactHome.email);
 		
 		Label lblAddress = new Label(shell, SWT.NONE);
 		lblAddress.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
@@ -126,7 +127,7 @@ public class editContact {
 		lblAddress.setText("Address:");
 		Text addressTextBox = new Text(shell, SWT.BORDER);
 		addressTextBox.setBounds(93, 218, 193, 26);
-		addressTextBox.setText(contact.address);		
+		addressTextBox.setText(contactHome.address);		
 		
 		Label lblFacebook = new Label(shell, SWT.NONE);
 		lblFacebook.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
@@ -135,7 +136,7 @@ public class editContact {
 		lblFacebook.setText("Facebook:");
 		Text fbTextBox = new Text(shell, SWT.BORDER);
 		fbTextBox.setBounds(93, 250, 193, 26);
-		fbTextBox.setText(contact.facebook);
+		fbTextBox.setText(contactHome.facebook);
 		
 		Label lblTwitter = new Label(shell, SWT.NONE);
 		lblTwitter.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
@@ -144,7 +145,7 @@ public class editContact {
 		lblTwitter.setText("Twitter:");
 		Text twitTextBox = new Text(shell, SWT.BORDER);
 		twitTextBox.setBounds(93, 282, 193, 26);
-		twitTextBox.setText(contact.twitter);
+		twitTextBox.setText(contactHome.twitter);
 		
 		Button updateButton = new Button(shell, SWT.NONE);
 		updateButton.addSelectionListener(new SelectionAdapter() {

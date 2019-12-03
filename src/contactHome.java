@@ -11,8 +11,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.List;
-import org.eclipse.jface.viewers.ListViewer;
-import org.eclipse.swt.widgets.Text;
 
 
 
@@ -78,7 +76,7 @@ public class contactHome {
 			@SuppressWarnings("unused")
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				String s = (String) list.getItem(list.getSelectionIndex());
+				String s = list.getItem(list.getSelectionIndex());
 				String[] sentence = s.split(" ");
 		
 				if (s != "") {
@@ -118,7 +116,7 @@ public class contactHome {
 		editContactButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				String s = (String) list.getItem(list.getSelectionIndex());
+				String s = list.getItem(list.getSelectionIndex());
 				String[] sentence = s.split(" ");
 				
 				String sqlEdit = "SELECT * FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
@@ -155,7 +153,7 @@ public class contactHome {
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				String s = (String) list.getItem(list.getSelectionIndex());
+				String s = list.getItem(list.getSelectionIndex());
 				String[] sentence = s.split(" ");
 				
 				String sqlDelete = "DELETE FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
