@@ -49,10 +49,13 @@ public class ContactAppGUI {
 		createContents();
 		shell.open();
 		shell.setLocation(600, 100);
+		contactHome contact = new contactHome();
+		
 		
 		lnameTextBox = new Text(shell, SWT.BORDER);
 		lnameTextBox.setToolTipText("");
 		lnameTextBox.setBounds(93, 122, 193, 26);
+		//lnameTextBox.setText(contact.lname);
 				
 		Label lblFirstName = new Label(shell, SWT.NONE);
 		lblFirstName.setText("First Name:");

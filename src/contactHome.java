@@ -75,7 +75,31 @@ public class contactHome {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String s = (String) list.getItem(list.getSelectionIndex());
-				JOptionPane.showMessageDialog(null, s);
+				String[] sentence = s.split(" ");
+				
+				String sqlEdit = "SELECT * FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
+				try {
+					contacts = conn.createStatement();
+					ResultSet rs = contacts.executeQuery(sqlEdit);
+					while (rs.next()) {
+						
+						fname = rs.getString(1);
+						lname = rs.getString(2);
+						phone = rs.getString(3);
+						email = rs.getString(4);
+						address = rs.getString(5);
+						facebook = rs.getString(6);
+						twitter = rs.getString(7);
+						
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				viewContact view = new viewContact();
+				shell.close();
+				view.open();
+				
 			}
 		});
 		viewContactButton.setBounds(196, 57, 99, 30);

@@ -1,17 +1,22 @@
+
+import org.eclipse.swt.graphics.Image;
+
+
+
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-public class searchPage {
-
-	protected Shell shell;
+public class showMap {
+	
 
 	/**
 	 * Launch the application.
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
 		try {
-			searchPage window = new searchPage();
+			editContact window = new editContact();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -23,24 +28,18 @@ public class searchPage {
 	 */
 	public void open() {
 		Display display = Display.getDefault();
-		createContents();
+		Image oldImage = new Image(display, "test.jpg");
+		Shell shell = new Shell(display);
+		shell.setBackgroundImage(oldImage);
+		shell.setSize(316,425);
 		shell.open();
+		shell.setLocation(600, 100);
 		shell.layout();
+		
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
 		}
 	}
-
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(316, 425);
-		shell.setText("SWT Application");
-
-	}
-
 }
