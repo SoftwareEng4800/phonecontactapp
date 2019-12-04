@@ -10,9 +10,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-public class viewContact {
-		public static String fname = "";
-		public static String lname = "";
+public class searchViewContact {
+	public static String fname = "";
+	public static String lname = "";
 	protected Shell shell;
 
 	/**
@@ -21,7 +21,7 @@ public class viewContact {
 	 */
 	public static void main(String[] args) {
 		try {
-			viewContact window = new viewContact();
+			searchViewContact window = new searchViewContact();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,55 +36,55 @@ public class viewContact {
 		createContents();
 		shell.setLocation(800, 200);
 		shell.open();
-		contactHome view = new contactHome();
+		
 		Label fnameLabel = new Label(shell, SWT.NONE);
 		fnameLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		fnameLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		fnameLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		fnameLabel.setBounds(33, 80, 225, 31);
-		fnameLabel.setText(contactHome.fname);
+		fnameLabel.setText(searchPage.fname);
 		
 		Label lnameLabel = new Label(shell, SWT.NONE);
 		lnameLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		lnameLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		lnameLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		lnameLabel.setBounds(33, 117, 225, 31);
-		lnameLabel.setText(contactHome.lname);
+		lnameLabel.setText(searchPage.lname);
 		
 		Label phoneLabel = new Label(shell, SWT.NONE);
 		phoneLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		phoneLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		phoneLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		phoneLabel.setBounds(33, 154, 225, 31);
-		phoneLabel.setText(contactHome.phone);
+		phoneLabel.setText(searchPage.phone);
 		
 		Label emailLabel = new Label(shell, SWT.NONE);
 		emailLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		emailLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		emailLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		emailLabel.setBounds(33, 191, 225, 31);
-		emailLabel.setText(contactHome.email);
+		emailLabel.setText(searchPage.email);
 		
 		Label addressLabel = new Label(shell, SWT.NONE);
 		addressLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		addressLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		addressLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		addressLabel.setBounds(33, 228, 225, 31);
-		addressLabel.setText(contactHome.address);
+		addressLabel.setText(searchPage.address);
 		
 		Label facebookLabel = new Label(shell, SWT.NONE);
 		facebookLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		facebookLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		facebookLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		facebookLabel.setBounds(33, 265, 225, 31);
-		facebookLabel.setText(contactHome.facebook);
+		facebookLabel.setText(searchPage.facebook);
 		
 		Label twitterLabel = new Label(shell, SWT.NONE);
 		twitterLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		twitterLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		twitterLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		twitterLabel.setBounds(33, 302, 225, 31);
-		twitterLabel.setText(contactHome.twitter);
+		twitterLabel.setText(searchPage.twitter);
 		
 		Label backLabel = new Label(shell, SWT.NONE);
 		backLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
@@ -97,7 +97,7 @@ public class viewContact {
 		
 			@Override
 			public void handleEvent(Event arg0) {
-				contactHome contact = new contactHome();
+				searchPage contact = new searchPage();
 				shell.close();
 				contact.open();				
 			}			

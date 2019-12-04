@@ -1,6 +1,7 @@
 import org.eclipse.swt.widgets.Display;
 
 import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 import org.eclipse.swt.widgets.Shell;
@@ -21,6 +22,8 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class ContactAppGUI {
 	public Connection conn = null;
 	public PreparedStatement pst = null;
+	Statement contacts = null;
+	public PreparedStatement dist1 = null;
 	protected Shell shell;
 	private Text phonenum;
 	private Text emailTextBox;
@@ -29,15 +32,20 @@ public class ContactAppGUI {
 	private Text twitTextBox;
 	private Text fnameTxtBox;
 	private Text lnameTextBox;
+	GeoApiContext context = new GeoApiContext.Builder()
+			.apiKey("AIzaSyCj11Xr9nAVmCWloNL7O7Ea3FNhUanTfz8")
+			.build();
+	distanceFinder dist = new distanceFinder();
+	staticMap staticMaps = new staticMap();
+	public String lat;
+	public String lon;
 
 	/**
 	 * Launch the application.
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		GeoApiContext context = new GeoApiContext.Builder()
-				.apiKey("AIzaSyCj11Xr9nAVmCWloNL7O7Ea3FNhUanTfz8")
-				.build();
+		
 		try {
 			ContactAppGUI window = new ContactAppGUI();
 			window.open();
@@ -200,8 +208,49 @@ public class ContactAppGUI {
 			
 				
 				pst.executeUpdate();
-				conn.close();
 				
+				String firstName = fnameTxtBox.getText();
+				String lastName = lnameTextBox.getText();
+				String addy = addressTextBox.getText();
+				
+				GeocodingResult[] results = GeocodingApi.geocode(context,
+						addy).await();
+				com.google.maps.model.Geometry x = results[0].geometry;
+				String y = x.toString();
+				String[] yy = y.split(":");
+				String[] yz = yy[1].split(",");
+				String[] zz = yz[1].split(" ");
+				
+				
+				String sqlSearch = "SELECT * FROM myGEO";
+				try {
+					contacts = conn.createStatement();
+					ResultSet rs = contacts.executeQuery(sqlSearch);
+					while (rs.next()) {
+						lat = rs.getString(1);
+						lon = rs.getString(2);						
+					}
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				double latD = Double.parseDouble(lat);
+				double lonD = Double.parseDouble(lon);
+				double yzD = Double.parseDouble(yz[0]);
+				double zzD = Double.parseDouble(zz[0]);
+				Double distance = dist.distance(latD, yzD, lonD, zzD);
+				String sqlDist = "INSERT INTO distance VALUES(?,?,?)";
+				dist1 = conn.prepareStatement(sqlDist);
+				
+				dist1.setString(1, firstName);
+				dist1.setString(2, lastName);
+				dist1.setString(3, distance.toString());
+				
+				dist1.executeUpdate();
+				
+				conn.close();
+				staticMaps.statMap(yzD, lonD, firstName, lastName);
 				contactHome newWindow = new contactHome();
 				shell.close();
 				newWindow.open();

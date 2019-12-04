@@ -10,6 +10,11 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.JOptionPane;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -22,6 +27,8 @@ public class registerPage {
 	public Connection conn = null;
 	public PreparedStatement pst = null;
 	public PreparedStatement pst1 = null;
+	Statement delRegister = null;
+	Statement delMyGeo = null;
 	protected Shell shellRegister;
 	public Text unameTxtBox;
 	public Text pwordTextBox;
@@ -99,23 +106,23 @@ public class registerPage {
 		lblRegister.setBounds(89, 55, 147, 73);
 		lblRegister.setText("Register");
 		
-		Label lblNewLabel = new Label(shellRegister, SWT.NONE);
-		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblNewLabel.setBounds(71, 134, 70, 20);
-		lblNewLabel.setText("Username:");
+		Label userLbl = new Label(shellRegister, SWT.NONE);
+		userLbl.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		userLbl.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		userLbl.setBounds(71, 134, 70, 20);
+		userLbl.setText("Username:");
 		
-		Label lblNewLabel_1 = new Label(shellRegister, SWT.NONE);
-		lblNewLabel_1.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblNewLabel_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		lblNewLabel_1.setBounds(77, 195, 64, 20);
-		lblNewLabel_1.setText("Password:");
+		Label passwordLbl = new Label(shellRegister, SWT.NONE);
+		passwordLbl.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		passwordLbl.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		passwordLbl.setBounds(77, 195, 64, 20);
+		passwordLbl.setText("Password:");
 		
-		Label lblNewLabel_2 = new Label(shellRegister, SWT.NONE);
-		lblNewLabel_2.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		lblNewLabel_2.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblNewLabel_2.setBounds(16, 227, 125, 20);
-		lblNewLabel_2.setText("Re-enter Password:");
+		Label passwordTwoLbl = new Label(shellRegister, SWT.NONE);
+		passwordTwoLbl.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		passwordTwoLbl.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		passwordTwoLbl.setBounds(16, 227, 125, 20);
+		passwordTwoLbl.setText("Re-enter Password:");
 		
 		unameTxtBox = new Text(shellRegister, SWT.BORDER);
 		unameTxtBox.setBounds(147, 134, 115, 26);
@@ -126,10 +133,25 @@ public class registerPage {
 		verifyPwdTextBox = new Text(shellRegister, SWT.BORDER | SWT.PASSWORD);
 		verifyPwdTextBox.setBounds(147, 224, 115, 26);
 		
-		Button btnNewButton = new Button(shellRegister, SWT.NONE);
-		btnNewButton.addSelectionListener(new SelectionAdapter() {
+		Button submitButton = new Button(shellRegister, SWT.NONE);
+		submitButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				String deleteRegister = "DELETE FROM register";
+				String deleteMyGeo = "DELETE FROM myGeo";
+				
+				try {
+					delRegister = conn.createStatement();
+					delRegister.execute(deleteRegister);
+					delMyGeo = conn.createStatement();
+					delMyGeo.execute(deleteMyGeo);
+					
+				} catch (SQLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				
+				
 				String sql = "INSERT INTO register VALUES(?,?)";
 				LoginScreen newWindow = new LoginScreen();
 				
@@ -164,14 +186,14 @@ public class registerPage {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-														
+					JOptionPane.showMessageDialog(null, "Use your new credentials to login.");								
 					shellRegister.close();
 					newWindow.open();
 				}
 			}
 		});
-		btnNewButton.setBounds(65, 266, 90, 30);
-		btnNewButton.setText("Submit");
+		submitButton.setBounds(65, 266, 90, 30);
+		submitButton.setText("Submit");
 
 	}
 }

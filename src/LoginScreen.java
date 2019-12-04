@@ -82,7 +82,7 @@ public class LoginScreen {
 		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.BOLD));
 		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblNewLabel.setBounds(90, 48, 115, 55);
+		lblNewLabel.setBounds(104, 47, 90, 55);
 		lblNewLabel.setText("Login");
 		
 		Button btnLogin = new Button(shlLoginScreen, SWT.NONE);

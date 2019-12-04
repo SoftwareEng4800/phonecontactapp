@@ -28,7 +28,7 @@ public class showMap {
 	 */
 	public void open() {
 		Display display = Display.getDefault();
-		Image oldImage = new Image(display, "test.jpg");
+		Image oldImage = new Image(display, viewContact.fname+viewContact.lname+".png");
 		Shell shell = new Shell(display);
 		shell.setBackgroundImage(oldImage);
 		shell.setSize(316,425);

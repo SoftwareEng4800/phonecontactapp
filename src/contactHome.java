@@ -19,6 +19,7 @@ public class contactHome {
 
 	public Connection conn = null;
 	Statement contacts = null;
+	Statement delDistance = null;
 	protected Shell shell;
 	public static String fname = ""; 
 	public static String lname = "";
@@ -52,7 +53,7 @@ public class contactHome {
 		conn = javaConnect.ConnectDB();
 		List list = new List(shell, SWT.BORDER | SWT.V_SCROLL);
 		list.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		list.setBounds(10, 58, 180, 214);
+		list.setBounds(10, 58, 162, 214);
 				
 		String sqlContacts = "SELECT fname, lname FROM phonecontact";
 		
@@ -70,7 +71,7 @@ public class contactHome {
 		list.setSelection(0);
 		
 		Button viewContactButton = new Button(shell, SWT.NONE);
-		viewContactButton.setBounds(196, 57, 99, 30);
+		viewContactButton.setBounds(178, 57, 117, 30);
 		viewContactButton.setText("View Contact");
 		viewContactButton.addSelectionListener(new SelectionAdapter() {
 			@SuppressWarnings("unused")
@@ -146,7 +147,7 @@ public class contactHome {
 			}
 		});
 		
-		editContactButton.setBounds(196, 93, 99, 30);
+		editContactButton.setBounds(178, 93, 117, 30);
 		editContactButton.setText("Edit Contact");
 		
 		Button deleteButton = new Button(shell, SWT.NONE);
@@ -157,9 +158,12 @@ public class contactHome {
 				String[] sentence = s.split(" ");
 				
 				String sqlDelete = "DELETE FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
+				String sqlDelDistance = "DELETE FROM distance WHERE fname LIKE '" + sentence[0] + "'";
 				try {
 					contacts = conn.createStatement();
 					contacts.execute(sqlDelete);
+					delDistance = conn.createStatement();
+					delDistance.execute(sqlDelDistance);
 					shell.close();
 					contactHome contact = new contactHome();
 					contact.open();
@@ -170,9 +174,33 @@ public class contactHome {
 				}
 			}
 		});
-		deleteButton.setFont(SWTResourceManager.getFont("Segoe UI", 8, SWT.NORMAL));
-		deleteButton.setBounds(196, 129, 99, 30);
+		deleteButton.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.NORMAL));
+		deleteButton.setBounds(178, 129, 117, 30);
 		deleteButton.setText("Delete Contact");
+		
+		Button searchBtn = new Button(shell, SWT.NONE);
+		searchBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				searchPage search = new searchPage();
+				shell.close();
+				search.open();
+			}
+		});
+		searchBtn.setBounds(178, 164, 117, 30);
+		searchBtn.setText("Search Contacts");
+		
+		Button logoutButton = new Button(shell, SWT.NONE);
+		logoutButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				LoginScreen logout = new LoginScreen();
+				shell.close();
+				logout.open();
+			}
+		});
+		logoutButton.setBounds(178, 242, 117, 30);
+		logoutButton.setText("Logout");
 		shell.layout();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
