@@ -244,7 +244,7 @@ public class ContactAppGUI {
 				
 				dist1.setString(1, firstName);
 				dist1.setString(2, lastName);
-				dist1.setString(3, distance.toString());
+				dist1.setDouble(3, distance);
 				
 				dist1.executeUpdate();
 				

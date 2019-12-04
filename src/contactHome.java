@@ -1,9 +1,7 @@
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import java.sql.*;
-
 import javax.swing.JOptionPane;
-
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
@@ -12,15 +10,15 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.List;
 
-
-
-
 public class contactHome {
-
+	//declarations for SQL queries
 	public Connection conn = null;
 	Statement contacts = null;
 	Statement delDistance = null;
-	protected Shell shell;
+	protected Shell shlContactHome;
+	/**
+	 * Variables used for other windows mainly View and Edit Contact
+	 */
 	public static String fname = ""; 
 	public static String lname = "";
 	public static String email = "";
@@ -48,15 +46,17 @@ public class contactHome {
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
-		shell.open();
-		shell.setLocation(800, 200);
-		conn = javaConnect.ConnectDB();
-		List list = new List(shell, SWT.BORDER | SWT.V_SCROLL);
+		shlContactHome.open();
+		shlContactHome.setLocation(800, 200);//sets the window 
+		conn = javaConnect.ConnectDB();//connect to javaConnect.java for DB
+		
+		List list = new List(shlContactHome, SWT.BORDER | SWT.V_SCROLL);
 		list.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		list.setBounds(10, 58, 162, 214);
-				
+		/**
+		 * Loads contacts on open
+		 */
 		String sqlContacts = "SELECT fname, lname FROM phonecontact";
-		
 		try {
 			contacts = conn.createStatement();
 			ResultSet rs = contacts.executeQuery(sqlContacts);
@@ -68,9 +68,13 @@ public class contactHome {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		/**
+		 * auto select the list so users cannot click View Contact without a contact
+		 * selected.
+		 */
 		list.setSelection(0);
 		
-		Button viewContactButton = new Button(shell, SWT.NONE);
+		Button viewContactButton = new Button(shlContactHome, SWT.NONE);
 		viewContactButton.setBounds(178, 57, 117, 30);
 		viewContactButton.setText("View Contact");
 		viewContactButton.addSelectionListener(new SelectionAdapter() {
@@ -84,9 +88,11 @@ public class contactHome {
 					String sqlEdit = "SELECT * FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
 					try {
 						contacts = conn.createStatement();
-						ResultSet rs = contacts.executeQuery(sqlEdit);
+						ResultSet rs = contacts.executeQuery(sqlEdit);//gets all of the tuples based on the query
 						while (rs.next()) {
-							
+							/**
+							 * sends the variable info into the global variables to use in viewContact.java
+							 */
 							fname = rs.getString(1);
 							lname = rs.getString(2);
 							phone = rs.getString(3);
@@ -101,19 +107,16 @@ public class contactHome {
 						e1.printStackTrace();
 					}
 					viewContact view = new viewContact();
-					shell.close();
+					shlContactHome.close();
 					view.open();
 				} else if (sentence[0] == "") {
 					JOptionPane.showMessageDialog(null, s);
 				}
-			
-			
-				
 			}
 		});
 		
 		
-		Button editContactButton = new Button(shell, SWT.NONE);
+		Button editContactButton = new Button(shlContactHome, SWT.NONE);
 		editContactButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -141,7 +144,7 @@ public class contactHome {
 					e1.printStackTrace();
 				}
 				editContact edit = new editContact();
-				shell.close();
+				shlContactHome.close();
 				edit.open();
 				
 			}
@@ -150,13 +153,18 @@ public class contactHome {
 		editContactButton.setBounds(178, 93, 117, 30);
 		editContactButton.setText("Edit Contact");
 		
-		Button deleteButton = new Button(shell, SWT.NONE);
+		Button deleteButton = new Button(shlContactHome, SWT.NONE);
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String s = list.getItem(list.getSelectionIndex());
 				String[] sentence = s.split(" ");
-				
+				/**
+				 * deletes from both distance table and original contact
+				 * table to ensure quality assurance. Basically
+				 * we do not want a distance for a user we deleted. Unfortunately,
+				 * it will not check if someone has the same first name.
+				 */
 				String sqlDelete = "DELETE FROM phonecontact WHERE fname LIKE '" + sentence[0] + "'";
 				String sqlDelDistance = "DELETE FROM distance WHERE fname LIKE '" + sentence[0] + "'";
 				try {
@@ -164,7 +172,7 @@ public class contactHome {
 					contacts.execute(sqlDelete);
 					delDistance = conn.createStatement();
 					delDistance.execute(sqlDelDistance);
-					shell.close();
+					shlContactHome.close();
 					contactHome contact = new contactHome();
 					contact.open();
 					
@@ -178,31 +186,31 @@ public class contactHome {
 		deleteButton.setBounds(178, 129, 117, 30);
 		deleteButton.setText("Delete Contact");
 		
-		Button searchBtn = new Button(shell, SWT.NONE);
+		Button searchBtn = new Button(shlContactHome, SWT.NONE);
 		searchBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				searchPage search = new searchPage();
-				shell.close();
+				shlContactHome.close();
 				search.open();
 			}
 		});
 		searchBtn.setBounds(178, 164, 117, 30);
 		searchBtn.setText("Search Contacts");
 		
-		Button logoutButton = new Button(shell, SWT.NONE);
+		Button logoutButton = new Button(shlContactHome, SWT.NONE);
 		logoutButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				LoginScreen logout = new LoginScreen();
-				shell.close();
+				shlContactHome.close();
 				logout.open();
 			}
 		});
 		logoutButton.setBounds(178, 242, 117, 30);
 		logoutButton.setText("Logout");
-		shell.layout();
-		while (!shell.isDisposed()) {
+		shlContactHome.layout();
+		while (!shlContactHome.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
@@ -213,25 +221,25 @@ public class contactHome {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shell = new Shell();
-		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		shell.setSize(316, 425);
-		shell.setText("Home Screen");
+		shlContactHome = new Shell();
+		shlContactHome.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		shlContactHome.setSize(316, 425);
+		shlContactHome.setText("Home Screen");
 		
-		Label lblHome = new Label(shell, SWT.NONE);
+		Label lblHome = new Label(shlContactHome, SWT.NONE);
 		lblHome.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		lblHome.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		lblHome.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.BOLD));
 		lblHome.setBounds(10, 10, 162, 42);
 		lblHome.setText("Contacts");
 		
-		Button btnNewContact = new Button(shell, SWT.NONE);
+		Button btnNewContact = new Button(shlContactHome, SWT.NONE);
 		btnNewContact.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				
 				ContactAppGUI newWindow = new ContactAppGUI();
-				shell.close();
+				shlContactHome.close();
 				newWindow.open();
 				
 				
