@@ -10,6 +10,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.List;
 
+/**
+ * This is the homepage file
+ * @author viver
+ *
+ */
 public class contactHome {
 	//declarations for SQL queries
 	public Connection conn = null;

@@ -1,6 +1,10 @@
 import java.sql.*;
 import javax.swing.*;
-
+/**
+ * This is the driver for our database
+ * @author viver
+ *
+ */
 public class javaConnect {
 
 	Connection conn = null;
@@ -10,6 +14,7 @@ public class javaConnect {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\viver\\git\\ContactApp\\contactApp.sqlite");
+			//used for testing to make sure I was connected to Database
 			//JOptionPane.showMessageDialog(null, "Connection Established");
 			return conn;
 			}catch (Exception e) {

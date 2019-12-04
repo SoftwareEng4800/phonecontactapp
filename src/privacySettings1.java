@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+/**
+ * Could be used in the future when it is needed.
+ * @author viver
+ *
+ */
 public class privacySettings1 {
 
 	public static void main(String[] args) {

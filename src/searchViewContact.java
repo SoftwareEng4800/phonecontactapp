@@ -9,8 +9,13 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-
+/**
+ * Search Pages View Contact to allow autofill for labels
+ * @author viver
+ *
+ */
 public class searchViewContact {
+	//exporting variables
 	public static String fname = "";
 	public static String lname = "";
 	protected Shell shell;
@@ -115,9 +120,7 @@ public class searchViewContact {
 		});
 		viewMapBtn.setBounds(75, 338, 150, 30);
 		viewMapBtn.setText("View Map Location");
-		shell.layout();
-		
-		
+		shell.layout();		
 		
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
@@ -133,7 +136,7 @@ public class searchViewContact {
 		shell = new Shell();
 		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		shell.setSize(316, 425);
-		shell.setText("SWT Application");
+		shell.setText("View Contact");
 		
 		
 		Label viewLabel = new Label(shell, SWT.NONE);

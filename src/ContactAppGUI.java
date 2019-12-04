@@ -1,5 +1,4 @@
 import org.eclipse.swt.widgets.Display;
-
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
@@ -11,12 +10,16 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Listener;
 import java.sql.*;
-
 import javax.swing.JOptionPane;
-
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+/**
+ * This is my New Contact UI file
+ * @author viver
+ *
+ */
 
 public class ContactAppGUI {
 	//declarations for SQL Queries

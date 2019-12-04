@@ -5,10 +5,16 @@ import org.eclipse.swt.graphics.Image;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-
+/**
+ * This file is unique. Instead of allowing WindowBuilder
+ * to make the shell, I built the shell on Load to use a picture
+ * of the Geo Map I got from the sql query. So essentially
+ * this file is just using another file as a background.
+ * @author viver
+ *
+ */
 public class showMap {
 	
-
 	/**
 	 * Launch the application.
 	 * @param args
@@ -31,7 +37,7 @@ public class showMap {
 		Image oldImage = new Image(display, viewContact.fname+viewContact.lname+".png");
 		Shell shell = new Shell(display);
 		shell.setBackgroundImage(oldImage);
-		shell.setSize(316,425);
+		shell.setSize(600,600);
 		shell.open();
 		shell.setLocation(800, 200);
 		shell.layout();

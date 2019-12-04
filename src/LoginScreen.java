@@ -12,8 +12,15 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.wb.swt.SWTResourceManager;
-
+/**
+ * The login Screen
+ * @author viver
+ *
+ */
 public class LoginScreen {
+	/**
+	 * SQL query prep
+	 */
 	public Connection conn = null;
 	Statement uname = null;
 	Statement pword = null;
@@ -43,7 +50,7 @@ public class LoginScreen {
 		shlLoginScreen.open();
 		shlLoginScreen.setLocation(800, 200);
 		shlLoginScreen.layout();
-		conn = javaConnect.ConnectDB();
+		conn = javaConnect.ConnectDB(); // connect to javaConnect.java
 		while (!shlLoginScreen.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
@@ -60,30 +67,28 @@ public class LoginScreen {
 		shlLoginScreen.setSize(316, 424);
 		shlLoginScreen.setText("Login Screen");
 		
-		uNameTextBox = new Text(shlLoginScreen, SWT.BORDER);
-		uNameTextBox.setBounds(115, 155, 135, 26);
-		
-		pwordTextBox = new Text(shlLoginScreen, SWT.BORDER | SWT.PASSWORD);
-		
-		pwordTextBox.setBounds(115, 187, 135, 26);
-		
 		Label lblUsername = new Label(shlLoginScreen, SWT.NONE);
 		lblUsername.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		lblUsername.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		lblUsername.setBounds(39, 158, 70, 20);
-		lblUsername.setText("Username:");
+		lblUsername.setText("Username:");		
+		uNameTextBox = new Text(shlLoginScreen, SWT.BORDER);
+		uNameTextBox.setBounds(115, 155, 135, 26);
 		
 		Label lblPassword = new Label(shlLoginScreen, SWT.NONE);
 		lblPassword.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		lblPassword.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		lblPassword.setBounds(45, 190, 64, 20);
 		lblPassword.setText("Password:");
-		Label lblNewLabel = new Label(shlLoginScreen, SWT.NONE);
-		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.BOLD));
-		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		lblNewLabel.setBounds(104, 47, 90, 55);
-		lblNewLabel.setText("Login");
+		pwordTextBox = new Text(shlLoginScreen, SWT.BORDER | SWT.PASSWORD);		
+		pwordTextBox.setBounds(115, 187, 135, 26);
+				
+		Label loginLabel = new Label(shlLoginScreen, SWT.NONE);
+		loginLabel.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.BOLD));
+		loginLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		loginLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		loginLabel.setBounds(104, 47, 90, 55);
+		loginLabel.setText("Login");
 		
 		Button btnLogin = new Button(shlLoginScreen, SWT.NONE);
 		btnLogin.addSelectionListener(new SelectionAdapter() {
@@ -110,8 +115,13 @@ public class LoginScreen {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+				/**
+				 * Checks to ensure username is in Database
+				 */
 				if (userName.equals(uNameTextBox.getText())) {
+					/**
+					 * checks to ensure password is in database
+					 */
 					if (passWord.equals(pwordTextBox.getText())) {
 						contactHome newWindow = new contactHome();
 						shlLoginScreen.close();

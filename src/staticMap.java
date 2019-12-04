@@ -12,9 +12,15 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import javax.imageio.ImageIO;
+
+/**
+ * This is the driver file to make the map .png
+ * @author viver
+ *
+ */
 public class staticMap {
-	 private final static int WIDTH = 316;  // width of the result map
-	 private final static int HEIGHT = 425;		// height of the result map 
+	 private final static int WIDTH = 600;  // width of the result map
+	 private final static int HEIGHT = 600;		// height of the result map 
 	public static void statMap(double lat, double lon, String fname, String lname) throws IOException, ApiException, InterruptedException {
 		GeoApiContext context = new GeoApiContext.Builder()   
 			    .apiKey("AIzaSyCj11Xr9nAVmCWloNL7O7Ea3FNhUanTfz8")  // build the API key ; store the key in variable name context

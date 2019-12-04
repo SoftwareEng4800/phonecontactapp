@@ -1,12 +1,14 @@
 import java.io.IOException;
 
-import org.eclipse.jface.util.Geometry;
-
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
-
+/**
+ * Test File for Lat and Long coordinates
+ * @author viver
+ *
+ */
 public class test1 {
 
 	public static void main(String[] args) throws ApiException, InterruptedException, IOException {

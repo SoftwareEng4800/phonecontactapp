@@ -5,9 +5,13 @@ import org.eclipse.swt.graphics.Image;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-
-public class searchViewMap {
-	
+/**
+ * Search Page Map View
+ * Needed to make a separate file due to SQL limitations
+ * @author viver
+ *
+ */
+public class searchViewMap {	
 
 	/**
 	 * Launch the application.

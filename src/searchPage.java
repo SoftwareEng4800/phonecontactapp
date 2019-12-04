@@ -4,23 +4,26 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-
+/**
+ * Search UI page
+ * @author viver
+ *
+ */
 public class searchPage {
+	/**
+	 * SQL Query Prep
+	 */
 	public Connection conn = null;
 	public static String fname = ""; 
 	public static String lname = "";
@@ -33,7 +36,7 @@ public class searchPage {
 	Statement miles = null;
 	Statement contacts = null;
 	Statement byName = null;
-	protected Shell shell;
+	protected Shell shlSearch;
 	private Text nameTextBox;
 	private Text milesTextBox;
 	@SuppressWarnings("unused")
@@ -58,15 +61,15 @@ public class searchPage {
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
-		shell.open();
+		shlSearch.open();
 				
 		conn = javaConnect.ConnectDB();
-		shell.setLocation(800, 200);
-		shell.layout();
-		List resultList = new List(shell, SWT.BORDER);
+		shlSearch.setLocation(800, 200);
+		shlSearch.layout();
+		List resultList = new List(shlSearch, SWT.BORDER);
 		resultList.setBounds(10, 117, 182, 236);
 		
-		Label backLabel = new Label(shell, SWT.NONE);
+		Label backLabel = new Label(shlSearch, SWT.NONE);
 		backLabel.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		backLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		backLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
@@ -78,22 +81,26 @@ public class searchPage {
 			@Override
 			public void handleEvent(Event arg0) {
 				contactHome contact = new contactHome();
-				shell.close();
+				shlSearch.close();
 				contact.open();				
 			}
 		});
-		Label searchLbl = new Label(shell, SWT.NONE);
+		Label searchLbl = new Label(shlSearch, SWT.NONE);
 		searchLbl.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		searchLbl.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
 		searchLbl.setFont(SWTResourceManager.getFont("Segoe UI", 20, SWT.BOLD));
 		searchLbl.setBounds(10, -3, 162, 42);
 		searchLbl.setText("Search:");
 		
-		
-		milesTextBox = new Text(shell, SWT.BORDER);
+		Label milesLbl = new Label(shlSearch, SWT.NONE);
+		milesLbl.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
+		milesLbl.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		milesLbl.setBounds(122, 57, 70, 20);
+		milesLbl.setText("miles");
+		milesTextBox = new Text(shlSearch, SWT.BORDER);
 		milesTextBox.setBounds(10, 51, 99, 26);
 		
-		Button distButton = new Button(shell, SWT.NONE);
+		Button distButton = new Button(shlSearch, SWT.NONE);
 		distButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -112,10 +119,10 @@ public class searchPage {
 					}
 				 
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
-				Button viewContactButton = new Button(shell, SWT.NONE);
+				Button viewContactButton = new Button(shlSearch, SWT.NONE);
 				viewContactButton.setBounds(198, 117, 90, 30);
 				viewContactButton.setText("View Contact");
 				viewContactButton.addSelectionListener(new SelectionAdapter() {
@@ -141,11 +148,11 @@ public class searchPage {
 									
 								}
 							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
+								
 								e1.printStackTrace();
 							}
 							searchViewContact view = new searchViewContact();
-							shell.close();
+							shlSearch.close();
 							view.open();
 						} else if (sentence[0] == "") {
 							JOptionPane.showMessageDialog(null, s);
@@ -153,7 +160,7 @@ public class searchPage {
 					}
 				});
 				
-				Button clearListBox = new Button(shell, SWT.NONE);
+				Button clearListBox = new Button(shlSearch, SWT.NONE);
 				clearListBox.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
@@ -172,7 +179,7 @@ public class searchPage {
 		distButton.setBounds(198, 47, 90, 30);
 		distButton.setText("By Distance");
 		
-		Button nameButton = new Button(shell, SWT.NONE);
+		Button nameButton = new Button(shlSearch, SWT.NONE);
 		nameButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -191,14 +198,14 @@ public class searchPage {
 							resultList.update();							
 						}
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
+						
 						e1.printStackTrace();
 					}
 					
 				} else if (sentence[0] == "") {
 					JOptionPane.showMessageDialog(null, s);
 				}
-				Button viewContactButton = new Button(shell, SWT.NONE);
+				Button viewContactButton = new Button(shlSearch, SWT.NONE);
 				viewContactButton.setBounds(198, 117, 90, 30);
 				viewContactButton.setText("View Contact");
 				viewContactButton.addSelectionListener(new SelectionAdapter() {
@@ -225,11 +232,11 @@ public class searchPage {
 									
 								}
 							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
+								
 								e1.printStackTrace();
 							}
 							searchViewContact view = new searchViewContact();
-							shell.close();
+							shlSearch.close();
 							view.open();
 						} else if (sentence[0] == "") {
 							JOptionPane.showMessageDialog(null, s);
@@ -237,7 +244,7 @@ public class searchPage {
 					}
 				});
 				
-				Button clearListBox = new Button(shell, SWT.NONE);
+				Button clearListBox = new Button(shlSearch, SWT.NONE);
 				clearListBox.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
@@ -252,27 +259,13 @@ public class searchPage {
 				clearListBox.setText("Clear Search");
 			}
 		});
-		nameButton.setBounds(198, 83, 90, 30);
-		nameButton.setText("By Name");
 		
-		nameTextBox = new Text(shell, SWT.BORDER);
+		nameButton.setBounds(198, 83, 90, 30);
+		nameButton.setText("By Name");		
+		nameTextBox = new Text(shlSearch, SWT.BORDER);
 		nameTextBox.setBounds(10, 85, 182, 26);
 		
-		
-		
-		Label milesLbl = new Label(shell, SWT.NONE);
-		milesLbl.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
-		milesLbl.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		milesLbl.setBounds(122, 57, 70, 20);
-		milesLbl.setText("miles");
-		
-		
-		
-		
-		
-		
-		
-		while (!shell.isDisposed()) {
+		while (!shlSearch.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
@@ -283,10 +276,10 @@ public class searchPage {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shell = new Shell();
-		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
-		shell.setSize(316, 425);
-		shell.setText("SWT Application");
+		shlSearch = new Shell();
+		shlSearch.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLUE));
+		shlSearch.setSize(316, 425);
+		shlSearch.setText("Search");
 
 	}
 }
