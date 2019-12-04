@@ -6,7 +6,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-public class showMap {
+public class searchViewMap {
 	
 
 	/**
@@ -16,7 +16,7 @@ public class showMap {
 	public static void main(String[] args) {
 		
 		try {
-			showMap window = new showMap();
+			searchViewMap window = new searchViewMap();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,7 +28,7 @@ public class showMap {
 	 */
 	public void open() {
 		Display display = Display.getDefault();
-		Image oldImage = new Image(display, viewContact.fname+viewContact.lname+".png");
+		Image oldImage = new Image(display, searchViewContact.fname+searchViewContact.lname+".png");
 		Shell shell = new Shell(display);
 		shell.setBackgroundImage(oldImage);
 		shell.setSize(316,425);
