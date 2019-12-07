@@ -3,7 +3,11 @@ import java.util.Scanner;
  * This file is used to calculate our distance using owners Lat and Long vs
  * their contacts Lat and Long. Unfortunately, it calculates from A to B, 
  * not travel distance. So it calculates in a straight line, literally.
- * @author viver
+ * If you run this actual file, there are a couple of tests in this file.
+ * They take user input and then converts them to distance.
+ * @author Andrew Aguilar
+ * Tested By: Andrew Aguilar
+ * Debugged By: Yifei Shi, William Watson
  *
  */
 public class distanceFinder {

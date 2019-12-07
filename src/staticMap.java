@@ -15,7 +15,8 @@ import javax.imageio.ImageIO;
 
 /**
  * This is the driver file to make the map .png
- * @author viver
+ * @author Yifei Shi
+ * Tested By: William Watson, Yifei Shi
  *
  */
 public class staticMap {

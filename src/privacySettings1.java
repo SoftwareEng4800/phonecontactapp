@@ -2,7 +2,10 @@ import java.util.Scanner;
 
 /**
  * Could be used in the future when it is needed.
- * @author viver
+ * @author Gurudeta Singh
+ * This file was not used because there was no reason to not show the details, we have
+ * no other users. This file could be helpful in the distant future if implemented
+ * with the project correctly.
  *
  */
 public class privacySettings1 {

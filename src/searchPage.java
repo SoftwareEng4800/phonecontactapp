@@ -16,8 +16,13 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 /**
- * Search UI page
- * @author viver
+ * Search UI page. This page allows the user to search through the distance table
+ * and the phonecontact tables of the contactApp.sqlite database. The number
+ * text box checks distance table and the name checks phonecontact.
+ * Once the listbox is populated with the results, the user can then view the 
+ * contact through a different file called searchViewContact.
+ * @author William
+ * Tested By: William
  *
  */
 public class searchPage {

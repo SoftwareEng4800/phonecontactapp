@@ -10,7 +10,8 @@ import org.eclipse.swt.widgets.Shell;
  * to make the shell, I built the shell on Load to use a picture
  * of the Geo Map I got from the sql query. So essentially
  * this file is just using another file as a background.
- * @author viver
+ * @author William Watson
+ * Could not be possible without Yifei's code in staticMap.java
  *
  */
 public class showMap {

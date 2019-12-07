@@ -10,8 +10,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 /**
- * View Contact UI
- * @author viver
+ * View Contact UI. Grabs the local variables in contactHome.java
+ * and puts them in a viewable window in this UI. You can then navigate
+ * via the buttons.
+ * @author William Watson
+ * Tested By: William Watson
  *
  */
 public class viewContact {

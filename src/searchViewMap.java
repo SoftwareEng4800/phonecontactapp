@@ -6,9 +6,11 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 /**
- * Search Page Map View
+ * Search Page Map View. Shows a Map as a background.
  * Needed to make a separate file due to SQL limitations
- * @author viver
+ * @author William Watson
+ * Could not be possible without Yifei's code in staticMap.java.
+ * Tested By: William, Andrew, Yifei.
  *
  */
 public class searchViewMap {	

@@ -16,8 +16,14 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 /**
- * Editing Contact UI
- * @author viver
+ * Editing Contact UI. This screen allows the user to edit the contact they
+ * choose from the previous screen, in the file contactHome.java. The fields are 
+ * pulled from global variables from contactHome.java and will update the fields
+ * with whatever the user indicates. Currently, if you change the address it does not 
+ * change the geo coordinates. Not an oversight, just something that was
+ * not implemented in time.
+ * @author William Watson
+ * Tested By: William Watson
  *
  */
 public class editContact {

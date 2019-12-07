@@ -13,8 +13,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.wb.swt.SWTResourceManager;
 /**
- * The login Screen
- * @author viver
+ * The login Screen. This is the screen the user will face everytime they open the app. 
+ * First time users will register and be pushed to the registerPage.java UI. Once
+ * you register, the credentials in both fields are checked in the register table of the 
+ * contactApp.sqlite database.
+ * @author William Watson
+ * Tested By: William Watson
  *
  */
 public class LoginScreen {

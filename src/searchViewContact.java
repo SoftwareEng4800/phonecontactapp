@@ -10,8 +10,13 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 /**
- * Search Pages View Contact to allow autofill for labels
- * @author viver
+ * Search Pages View Contact to allow autofill for labels.
+ * Same as the viewContact.java file, just needed a different file because
+ * of the links I had to make to the global variables in files. 
+ * Could be done differently if I used a different database structure or was
+ * able to save states differently acrossed the system.
+ * @author William Watson
+ * Tested By: William Watson
  *
  */
 public class searchViewContact {

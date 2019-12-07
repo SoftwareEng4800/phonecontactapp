@@ -11,8 +11,11 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.List;
 
 /**
- * This is the homepage file
- * @author viver
+ * This is the homepage file. This screen will show the user their contacts
+ * in a list box that is auto generated on screen open from the phonecontacts table
+ * in the contactApp.sqlite database. This is the users main screen they will navigate.
+ * @author William Watson
+ * Tested By: William Watson, Yifei, Andrew
  *
  */
 public class contactHome {

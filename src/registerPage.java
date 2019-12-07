@@ -16,9 +16,14 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 /**
- * User Registers in this UI
- * @author viver
- *
+ * User Registers in this UI. This page asks for your preferred username
+ * as well as the password twice to verify you inputted it correctly. Once
+ * checked and verified, saves into the register table of the contactApp.sqlite
+ * database. The address is also asked here because we need a base geo coordinate
+ * to put into the haversine formula when checking for distance.
+ * @author William Watson
+ * Geo Coordinates Written By: Yifei Shi
+ *Tested By: Yifei, Andrew, William
  */
 public class registerPage {
 	/**

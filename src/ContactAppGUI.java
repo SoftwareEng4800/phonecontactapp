@@ -16,9 +16,15 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 /**
- * This is my New Contact UI file
- * @author viver
- *
+ * This is my New Contact UI file. You enter your contacts information
+ * that is stored into the database. The address will then be converted
+ * into geo coordinates, Lat and Long, and then compared to the owner's
+ * geo coordinates that are saved when they registered into the myGeo table in the 
+ * database contactApp.sqlite.
+ * Written By: William Watson
+ * Distance Calculations: Andrew Aguilar
+ * Geo Coordinates: Yifei Shi
+ * Tested by: Will, Andrew, Yifei
  */
 
 public class ContactAppGUI {
